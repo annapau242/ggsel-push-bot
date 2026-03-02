@@ -32,15 +32,15 @@ HEADERS = {
     "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     "X-Requested-With": "XMLHttpRequest",
-    "Referer": "https://seller.ggsel.net/",
-    "Origin": "https://seller.ggsel.net",
+    "Referer": "https://seller.ggsel.com/",
+    "Origin": "https://seller.ggsel.com",
 }
 
 # Для некоторых эндпоинтов требуется заголовок locale
 HEADERS_LOCALE_RU = {**HEADERS, "locale": "ru"}
 
 # Базовые URL официального API
-BASE_API = "https://seller.ggsel.net"
+BASE_API = "https://seller.ggsel.com"
 DEBATES_URL = f"{BASE_API}/api_sellers/api/debates/v2"
 DEBATES_CHATS_URL = f"{BASE_API}/api_sellers/api/debates/v2/chats"
 LAST_SALES_URL = f"{BASE_API}/api_sellers/api/seller-last-sales"
