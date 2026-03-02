@@ -434,6 +434,10 @@ async def manual_check_orders(update: Update, context: ContextTypes.DEFAULT_TYPE
             alerts.append(format_order_alert(order))
 
         if alerts:
+            text = "\n\n".join(alerts)
+
+    if len(text) > 3500:
+        text = text[:3500] + "\n\n...(shortened)"
             await update.message.reply_text("\n\n".join(alerts), parse_mode="HTML")
         else:
             await update.message.reply_text("✅ Новых заказов нет.")
@@ -467,6 +471,10 @@ async def _auto_check_once(app: Application, chat_id: int):
             alerts.append(alert)
 
         if alerts:
+            text = "\n\n".join(alerts)
+
+    if len(text) > 3500:
+        text = text[:3500] + "\n\n...(shortened)"
             await app.bot.send_message(chat_id=chat_id, text="\n\n".join(alerts), parse_mode="HTML")
     except Exception as e:
         print(f"Auto-check error for {chat_id}: {e}")
