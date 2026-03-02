@@ -12,6 +12,35 @@ from telegram.request import HTTPXRequest
 from dotenv import load_dotenv
 
 load_dotenv()
+# -------- Safe Telegram Message Sender --------
+TG_MAX_LEN = 3900
+
+def _chunk_text(text: str, limit: int = TG_MAX_LEN):
+    if not text:
+        return [""]
+
+    chunks = []
+    text = str(text)
+
+    while len(text) > limit:
+        cut = text.rfind("\n", 0, limit)
+        if cut == -1 or cut < limit * 0.5:
+            cut = limit
+        chunks.append(text[:cut].rstrip())
+        text = text[cut:].lstrip()
+
+    if text:
+        chunks.append(text)
+    return chunks
+
+async def safe_send(update, context, text, **kwargs):
+    for part in _chunk_text(text):
+        if part:
+            await safe_send(update, context,
+                chat_id=update.effective_chat.id,
+                text=part,
+                **kwargs
+            )
 
 # — Конфигурация только из .env
 BOT_TOKEN = os.getenv("TG_BOT_TOKEN")
